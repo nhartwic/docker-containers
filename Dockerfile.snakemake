@@ -11,7 +11,7 @@ run apt-get update && apt-get install -y \
         bzip2 gnupg2 yum
 
 
-RUN /bin/bash -c "    yum update -y && \
+RUN /bin/bash -c "yum update -y && \
     yum install -y epel-release && \
     yum update -y && \
     yum install -y singularity && \
@@ -20,7 +20,7 @@ RUN /bin/bash -c "    yum update -y && \
     rm Miniconda3-latest-Linux-x86_64.sh && \
     conda create -c conda-forge -n snakemake bioconda::snakemake && \
     conda clean --all -y && \
-    source activate snakemake && \
-    "
+    source activate snakemake"
+
 RUN echo "source activate snakemake" > ~/.bashrc
 ENV PATH /opt/conda/envs/snakemake/bin:${PATH}
