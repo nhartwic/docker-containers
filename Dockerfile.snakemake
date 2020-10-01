@@ -47,6 +47,8 @@ RUN apk add --no-cache ca-certificates libseccomp squashfs-tools tzdata && \
     cp /usr/share/zoneinfo/UTC /etc/localtime
 ENV PATH="/usr/local/singularity/bin:$PATH"
 
+run apk add bash
+
 ADD . /tmp/repo
 WORKDIR /tmp/repo
 ENV PATH /opt/conda/bin:${PATH}
