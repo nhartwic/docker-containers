@@ -1,26 +1,18 @@
 FROM bitnami/minideb:stretch
-# MAINTAINER Johannes Köster <johannes.koester@tu-dortmund.de>
+
+
 ADD . /tmp/repo
 WORKDIR /tmp/repo
 ENV PATH /opt/conda/bin:${PATH}
 ENV LANG C.UTF-8
 ENV SHELL /bin/bash
-run apt-get update && apt-get install -y \
-        build-essential uuid-dev libgpgme-dev squashfs-tools \
-        libseccomp-dev wget pkg-config git cryptsetup-bin \
-        bzip2 gnupg2 yum
-
-
-RUN /bin/bash -c "yum update -y && \
-    yum install -y epel-release && \
-    yum update -y && \
-    yum install -y singularity && \
+RUN /bin/bash -c "install_packages wget bzip2 ca-certificates gnupg2 squashfs-tools git && \
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     bash Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda && \
     rm Miniconda3-latest-Linux-x86_64.sh && \
-    conda create -c conda-forge -n snakemake bioconda::snakemake && \
+    conda create -c conda-forge -n snakemake bioconda::snakemake bioconda::snakemake-minimal singularity && \
     conda clean --all -y && \
-    source activate snakemake"
+    source activate snakemake "
 
 RUN echo "source activate snakemake" > ~/.bashrc
 ENV PATH /opt/conda/envs/snakemake/bin:${PATH}
