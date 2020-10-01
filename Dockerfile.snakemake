@@ -5,7 +5,7 @@ WORKDIR /tmp/repo
 ENV PATH /opt/conda/bin:${PATH}
 ENV LANG C.UTF-8
 ENV SHELL /bin/bash
-run sudo apt-get update && sudo apt-get install -y \
+run apt-get update && apt-get install -y \
         build-essential uuid-dev libgpgme-dev squashfs-tools \
         libseccomp-dev wget pkg-config git cryptsetup-bin \
         bzip2 gnupg2 yum
